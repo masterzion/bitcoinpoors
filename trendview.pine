@@ -1,0 +1,29 @@
+//@version=4
+study(title="Bitcoin poors metrics", shorttitle="BTC poors", overlay=true)
+
+
+len1    = input(title="EMA_8", minval=1, type=input.integer, defval=8)
+period1 = input(title="Dayly",  type=input.bool, defval=false)
+len2    = input(title="EMA_14", minval=1, type=input.integer, defval=14)
+period2 = input(title="Dayly",  type=input.bool, defval=false)
+len3    = input(title="EMA_59", minval=1, type=input.integer, defval=59)
+period3 = input(title="Dayly",  type=input.bool, defval=true)
+len4    = input(title="EMA_80", minval=1, type=input.integer, defval=80)
+period4 = input(title="Dayly",  type=input.bool, defval=false)
+len5    = input(title="EMA_200", minval=1, type=input.integer, defval=200)
+period5 = input(title="EMA_8",  type=input.bool, defval=true)
+
+
+
+ema1 = security(syminfo.tickerid, (period1 ? "D" : timeframe.period), ema(close, len1))
+ema2 = security(syminfo.tickerid, (period2 ? "D" : timeframe.period), ema(close, len2))
+ema3 = security(syminfo.tickerid, (period3 ? "D" : timeframe.period), ema(close, len3))
+ema4 = security(syminfo.tickerid, (period4 ? "D" : timeframe.period), ema(close, len4))
+ema5 = security(syminfo.tickerid, (period5 ? "D" : timeframe.period), ema(close, len5))
+
+
+plot(ema1, color=color.new(#3aa1ff, 85), style=plot.style_area, title="EMA_8", linewidth=1)
+plot(ema2, color=color.new(#48a0fc, 0), style=plot.style_line, title="EMA_14", linewidth=1)
+plot(ema3, color=color.new(#2bc7a7, 90), style=plot.style_area, title="EMA_58", linewidth=1)
+plot(ema4, color=color.new(#fffc03, 0), style=plot.style_line, title="EMA_80", linewidth=1)
+plot(ema5, color=color.red, style=plot.style_line, title="EMA_200", linewidth=1)
